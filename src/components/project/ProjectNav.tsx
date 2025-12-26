@@ -13,7 +13,7 @@ export const ProjectNav = (props: ProjectNavProps) => (
       {(prev) => (
         <A href={`/work/${prev().slug}`} class="project-nav-link">
           <span class="project-nav-label">← Previous</span>
-          <span class="project-nav-title">{prev().title}</span>
+          <span class="project-nav-title">{prev().name}</span>
         </A>
       )}
     </Show>
@@ -22,7 +22,7 @@ export const ProjectNav = (props: ProjectNavProps) => (
       {(next) => (
         <A href={`/work/${next().slug}`} class="project-nav-link" style="text-align: right;">
           <span class="project-nav-label">Next →</span>
-          <span class="project-nav-title">{next().title}</span>
+          <span class="project-nav-title">{next().name}</span>
         </A>
       )}
     </Show>

@@ -1,23 +1,9 @@
-import { Component, Index } from "solid-js";
+import { Component, For } from "solid-js";
 import { Title, Meta } from "@solidjs/meta";
 import { A } from "@solidjs/router";
 import Grain from "~/components/common/Grain";
-import ProjectCard from "~/components/project/ProjectCard";
-
-const projects = [
-  {
-    title: "Chamber",
-    description: "AI-powered civic technology for democratic transparency",
-    year: "2024",
-    href: "/work/chamber",
-  },
-  {
-    title: "Flowers",
-    description: "A photographic study in bloom and decay",
-    year: "2025",
-    href: "/work/flowers",
-  },
-];
+import { getLiveProjects, getDevProjects, type Project } from "~/data/projects";
+import { getLatestPosts, type BlogPost } from "~/data/posts";
 
 const navLinks = [
   { label: "work", href: "/work" },
@@ -32,79 +18,134 @@ const externalLinks = [
   { label: "github", href: "https://github.com/f0rbit" },
 ];
 
+const ProjectRow: Component<{ project: Project }> = (props) => {
+  const hasExternalUrl = () => !!props.project.url;
+  const href = () => hasExternalUrl() ? props.project.url! : `/work/${props.project.slug}`;
+  const isExternal = () => hasExternalUrl();
+
+  return (
+    <a
+      href={href()}
+      class="project-row"
+      target={isExternal() ? "_blank" : undefined}
+      rel={isExternal() ? "noopener noreferrer" : undefined}
+    >
+      <span class="project-year">{props.project.year}</span>
+      <span class="project-name">{props.project.name}</span>
+      <span class="project-tags">{props.project.tags.join(", ")}</span>
+      {isExternal() && <span class="project-link-indicator">↗</span>}
+    </a>
+  );
+};
+
+const DevRow: Component<{ project: Project }> = (props) => {
+  const href = () => props.project.url ?? props.project.github ?? `/work/${props.project.slug}`;
+  const isExternal = () => !!props.project.url || !!props.project.github;
+
+  return (
+    <a
+      href={href()}
+      class="dev-row"
+      target={isExternal() ? "_blank" : undefined}
+      rel={isExternal() ? "noopener noreferrer" : undefined}
+    >
+      <span class="dev-name">{props.project.name}</span>
+      <span>—</span>
+      <span>{props.project.description}</span>
+      {isExternal() && <span>→</span>}
+    </a>
+  );
+};
+
+const PostRow: Component<{ post: BlogPost }> = (props) => (
+  <a
+    href={props.post.url}
+    class="post-row"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span class="post-date">{props.post.date}</span>
+    <span class="post-title">{props.post.title}</span>
+  </a>
+);
+
 const Home: Component = () => {
+  const liveProjects = getLiveProjects();
+  const devProjects = getDevProjects();
+  const latestPosts = getLatestPosts(3);
+
   return (
     <>
       <Title>Tom Materne</Title>
       <Meta
         name="description"
-        content="Software engineer, photographer, and aspiring game developer. Building at the intersection of technology and human experience."
+        content="Software engineer, game developer, and artist. Building at the intersection of technology and human experience."
       />
       <Grain />
       <div class="home">
-        <header class="home-hero">
+        <header class="home-hero" style={{ "padding-top": "var(--space-hero)", "padding-bottom": "var(--space-hero-below)" }}>
           <h1 class="home-name">THOMAS MATERNE</h1>
-          <p class="home-tagline">software · games · photography</p>
+          <p class="home-tagline">software games art</p>
         </header>
 
-        <hr class="divider" />
-
-        <section class="home-projects">
-          <Index each={projects}>
-            {(project) => (
-              <ProjectCard
-                title={project().title}
-                description={project().description}
-                year={project().year}
-                href={project().href}
-              />
-            )}
-          </Index>
+        <section class="home-section" style={{ "margin-bottom": "var(--space-section)" }}>
+          <h2 class="section-label">Selected Work</h2>
+          <For each={liveProjects}>
+            {(project) => <ProjectRow project={project} />}
+          </For>
         </section>
 
-        <hr class="divider" />
+        <section class="home-section" style={{ "margin-bottom": "var(--space-section)" }}>
+          <h2 class="section-label">In Development</h2>
+          <For each={devProjects}>
+            {(project) => <DevRow project={project} />}
+          </For>
+        </section>
 
-        <section class="home-status">
-          <p class="text-muted italic">
-            Currently: Building mycelia, shipping Chamber v2
-          </p>
+        <section class="home-section" style={{ "margin-bottom": "var(--space-section)" }}>
+          <h2 class="section-label">Latest Writing</h2>
+          <For each={latestPosts}>
+            {(post) => <PostRow post={post} />}
+          </For>
+          <a href="https://forbit.dev/blog" class="link-more" target="_blank" rel="noopener noreferrer">
+            all posts →
+          </a>
         </section>
 
         <nav class="home-nav">
-          <Index each={navLinks}>
+          <For each={navLinks}>
             {(link, i) => (
               <>
-                <A href={link().href} class="link-nav tracking-wide">
-                  {link().label}
+                <A href={link.href} class="link-nav tracking-wide">
+                  {link.label}
                 </A>
-                {i < navLinks.length - 1 && <span class="home-nav-sep" />}
+                {i() < navLinks.length - 1 && <span class="home-nav-sep" />}
               </>
             )}
-          </Index>
+          </For>
         </nav>
 
         <hr class="divider" />
 
         <footer class="home-footer">
           <div class="home-external">
-            <span class="text-sm text-subtle">also:</span>
-            <Index each={externalLinks}>
+            <For each={externalLinks}>
               {(link, i) => (
                 <>
                   <a
-                    href={link().href}
+                    href={link.href}
                     class="link-subtle text-sm"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {link().label}
+                    {link.label}
                   </a>
-                  {i < externalLinks.length - 1 && (
+                  {i() < externalLinks.length - 1 && (
                     <span class="text-subtle">·</span>
                   )}
                 </>
               )}
-            </Index>
+            </For>
           </div>
           <a href="mailto:tom@thomas-materne.com" class="link-subtle text-sm">
             tom@thomas-materne.com

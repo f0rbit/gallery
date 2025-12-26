@@ -27,39 +27,17 @@ const ProjectDetail: Component = () => {
     >
       {(p) => (
         <Layout back={{ href: "/work", label: "work" }}>
-          <Title>{p().title} - Tom Materne</Title>
+          <Title>{p().name} - Tom Materne</Title>
           
           <article class="page">
             <ProjectHero project={p()} />
             
             <section class="mt-lg">
-              <p class="text-lg text-muted leading-relaxed">{p().description}</p>
-              
-              <Show when={p().problem}>
+              <Show when={p().github}>
                 <div class="section mt-xl">
-                  <h2 class="section-title">Problem</h2>
-                  <p class="text-muted leading-relaxed">{p().problem}</p>
-                </div>
-              </Show>
-              
-              <Show when={p().approach}>
-                <div class="section mt-xl">
-                  <h2 class="section-title">Approach</h2>
-                  <p class="text-muted leading-relaxed">{p().approach}</p>
-                </div>
-              </Show>
-              
-              <Show when={p().technicalNotes}>
-                <div class="section mt-xl">
-                  <h2 class="section-title">Technical Notes</h2>
-                  <p class="text-muted leading-relaxed">{p().technicalNotes}</p>
-                  <Show when={p().forbitLink}>
-                    <p class="mt-md">
-                      <a href={p().forbitLink} class="text-sm" target="_blank" rel="noopener noreferrer">
-                        Read more on forbit.dev →
-                      </a>
-                    </p>
-                  </Show>
+                  <a href={p().github} class="text-sm" target="_blank" rel="noopener noreferrer">
+                    View on GitHub →
+                  </a>
                 </div>
               </Show>
             </section>

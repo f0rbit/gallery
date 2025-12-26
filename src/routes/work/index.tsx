@@ -18,8 +18,8 @@ const WorkIndex: Component = () => {
           <For each={projects}>
             {(project) => (
               <ProjectCard
-                title={project.title}
-                description={project.tagline}
+                title={project.name}
+                description={project.description}
                 year={project.year}
                 href={`/work/${project.slug}`}
               />

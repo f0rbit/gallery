@@ -8,16 +8,17 @@ type ProjectHeroProps = {
 const statusLabel = (status: Project["status"]): string => {
   const labels: Record<Project["status"], string> = {
     "live": "Live",
-    "in-progress": "In Progress",
-    "archived": "Archived"
+    "development": "In Development",
+    "paused": "Paused",
+    "finished": "Finished"
   };
   return labels[status];
 };
 
 export const ProjectHero = (props: ProjectHeroProps) => (
   <header class="project-hero">
-    <h1 class="project-hero-title">{props.project.title}</h1>
-    <p class="project-hero-tagline">{props.project.tagline}</p>
+    <h1 class="project-hero-title">{props.project.name}</h1>
+    <p class="project-hero-tagline">{props.project.description}</p>
     
     <div class="project-hero-meta">
       <span class="text-sm text-muted">{props.project.year}</span>
@@ -25,7 +26,7 @@ export const ProjectHero = (props: ProjectHeroProps) => (
         class="badge" 
         classList={{
           "badge--live": props.project.status === "live",
-          "badge--in-progress": props.project.status === "in-progress"
+          "badge--development": props.project.status === "development"
         }}
       >
         {statusLabel(props.project.status)}
@@ -39,9 +40,9 @@ export const ProjectHero = (props: ProjectHeroProps) => (
       </Show>
     </div>
 
-    <Show when={props.project.externalUrl}>
+    <Show when={props.project.url}>
       <a 
-        href={props.project.externalUrl} 
+        href={props.project.url} 
         class="btn"
         target="_blank"
         rel="noopener noreferrer"

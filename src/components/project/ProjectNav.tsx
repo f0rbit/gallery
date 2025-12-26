@@ -11,7 +11,7 @@ export const ProjectNav = (props: ProjectNavProps) => (
   <nav class="project-nav">
     <Show when={props.prev} fallback={<span />}>
       {(prev) => (
-        <A href={`/work/${prev().slug}`} class="project-nav-link">
+        <A href={`/projects/${prev().slug}`} class="project-nav-link">
           <span class="project-nav-label">← Previous</span>
           <span class="project-nav-title">{prev().name}</span>
         </A>
@@ -20,7 +20,7 @@ export const ProjectNav = (props: ProjectNavProps) => (
     
     <Show when={props.next}>
       {(next) => (
-        <A href={`/work/${next().slug}`} class="project-nav-link" style="text-align: right;">
+        <A href={`/projects/${next().slug}`} class="project-nav-link" style="text-align: right;">
           <span class="project-nav-label">Next →</span>
           <span class="project-nav-title">{next().name}</span>
         </A>

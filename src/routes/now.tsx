@@ -2,59 +2,50 @@ import { Title, Meta } from "@solidjs/meta";
 import Layout from "~/components/layout/Layout";
 
 type NowItem = {
-  title: string;
+  name: string;
   description: string;
   link?: { label: string; href: string };
 };
 
 const building: NowItem[] = [
   {
-    title: "Chamber v2",
-    description: "Adding historical context and improved summarization. Target: Q1 2025.",
+    name: "Chamber v2",
+    description: "Adding historical context and improved summarization",
   },
   {
-    title: "mycelia",
-    description: "A framework for interconnected digital gardens.",
+    name: "mycelia",
+    description: "Framework for interconnected digital gardens",
   },
   {
-    title: "devpad",
-    description: "Daily driver for project tracking.",
+    name: "devpad",
+    description: "Daily driver for project tracking",
     link: { label: "devpad.tools", href: "https://devpad.tools" },
   },
 ];
 
 const exploring: NowItem[] = [
   {
-    title: "Photography",
-    description: "Beginning a photographic study on flowers—bloom, decay, the passage of time.",
+    name: "Photography",
+    description: "Beginning a study on flowers, bloom, decay",
   },
   {
-    title: "Game Design",
-    description: "Researching atmospheric game design for first serious game project in Q3 2026.",
+    name: "Game Design",
+    description: "Researching atmospheric game design for 2026",
   },
 ];
 
-const NowSection = (props: { title: string; items: NowItem[] }) => (
-  <section class="section">
-    <h2 class="section-title">{props.title}</h2>
-    <ul class="list-plain">
-      {props.items.map((item) => (
-        <li class="mb-lg leading-relaxed">
-          <strong class="font-semibold">{item.title}</strong>
-          <span class="text-subtle"> — </span>
-          <span class="text-muted">
-            {item.description}
-            {item.link && (
-              <>
-                {" "}
-                <a href={item.link.href}>{item.link.label}</a>
-              </>
-            )}
-          </span>
-        </li>
-      ))}
-    </ul>
-  </section>
+const NowRow = (props: { item: NowItem }) => (
+  <a
+    href={props.item.link?.href ?? "#"}
+    class="dev-row"
+    target={props.item.link ? "_blank" : undefined}
+    rel={props.item.link ? "noopener noreferrer" : undefined}
+  >
+    <span class="dev-name">{props.item.name}</span>
+    <span>—</span>
+    <span>{props.item.description}</span>
+    {props.item.link && <span>→ {props.item.link.label}</span>}
+  </a>
 );
 
 export default function Now() {
@@ -71,8 +62,15 @@ export default function Now() {
         
         <hr class="divider" />
         
-        <NowSection title="Building" items={building} />
-        <NowSection title="Exploring" items={exploring} />
+        <section class="home-section" style={{ "margin-bottom": "var(--space-section)" }}>
+          <h2 class="section-label">Building</h2>
+          {building.map((item) => <NowRow item={item} />)}
+        </section>
+
+        <section class="home-section" style={{ "margin-bottom": "var(--space-section)" }}>
+          <h2 class="section-label">Exploring</h2>
+          {exploring.map((item) => <NowRow item={item} />)}
+        </section>
       </article>
     </Layout>
   );

@@ -13,7 +13,7 @@ type Props = {
 };
 
 const navLinks = [
-  { href: "/work", label: "work" },
+  { href: "/projects", label: "projects" },
   { href: "/about", label: "about" },
   { href: "/now", label: "now" },
   { href: "/colophon", label: "colophon" },

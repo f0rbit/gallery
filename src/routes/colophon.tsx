@@ -1,22 +1,26 @@
 import { Title, Meta } from "@solidjs/meta";
 import Layout from "~/components/layout/Layout";
 
-const Section = (props: { title: string; children: any }) => (
-  <section class="section">
-    <h2 class="section-title">{props.title}</h2>
-    {props.children}
-  </section>
-);
+type ListItem = { label: string; value: string };
 
-const TechList = (props: { items: { label: string; value: string }[] }) => (
-  <ul class="def-list">
-    {props.items.map((item) => (
-      <li class="def-item">
-        <span class="def-label">{item.label}:</span>
-        <span class="def-value">{item.value}</span>
-      </li>
-    ))}
-  </ul>
+const technology: ListItem[] = [
+  { label: "Framework", value: "SolidStart" },
+  { label: "Runtime", value: "Bun" },
+  { label: "Styling", value: "Vanilla CSS with custom properties" },
+  { label: "Hosting", value: "Cloudflare Pages" },
+];
+
+const typography: ListItem[] = [
+  { label: "Display", value: "Fraunces (Georgia fallback)" },
+  { label: "Body", value: "IBM Plex Sans (system fonts fallback)" },
+];
+
+const ListRow = (props: { item: ListItem }) => (
+  <div class="dev-row">
+    <span class="dev-name">{props.item.label}</span>
+    <span>—</span>
+    <span>{props.item.value}</span>
+  </div>
 );
 
 export default function ColophonPage() {
@@ -32,65 +36,46 @@ export default function ColophonPage() {
 
         <hr class="divider" />
 
-        <div class="flex flex-col gap-xl">
-          <Section title="How This Site Was Made">
-            <p class="prose">
-              This site is built with SolidStart and hand-crafted CSS.
-              No frameworks, no component libraries—just intentional
-              design decisions.
-            </p>
-          </Section>
+        <p class="prose" style={{ "margin-bottom": "var(--space-xl)" }}>
+          This site is built with SolidStart and hand-crafted CSS.
+          No frameworks, no component libraries—just intentional design decisions.
+        </p>
 
-          <Section title="Technology">
-            <TechList
-              items={[
-                { label: "Framework", value: "SolidStart" },
-                { label: "Runtime", value: "Bun" },
-                { label: "Styling", value: "Vanilla CSS with custom properties" },
-                { label: "Hosting", value: "Cloudflare Pages" },
-              ]}
-            />
-          </Section>
+        <hr class="divider" />
 
-          <Section title="Typography">
-            <TechList
-              items={[
-                { label: "Display", value: "Fraunces (currently using Georgia as fallback)" },
-                { label: "Body", value: "IBM Plex Sans (currently using system fonts)" },
-              ]}
-            />
-          </Section>
+        <section class="home-section" style={{ "margin-bottom": "var(--space-section)" }}>
+          <h2 class="section-label">Technology</h2>
+          {technology.map((item) => <ListRow item={item} />)}
+        </section>
 
-          <Section title="Design Philosophy">
-            <div class="prose">
-              <p>
-                This site is intentionally sparse. It's a gallery, not a
-                showcase of technical prowess. Every element earns its place.
-              </p>
-              <p>
-                The grain texture is inspired by analog photography and aged
-                paper. The warm color palette evokes darkroom prints.
-              </p>
-            </div>
-          </Section>
+        <section class="home-section" style={{ "margin-bottom": "var(--space-section)" }}>
+          <h2 class="section-label">Typography</h2>
+          {typography.map((item) => <ListRow item={item} />)}
+        </section>
 
-          <Section title="Credits">
-            <p class="text-muted">Built with love and Claude.</p>
-          </Section>
+        <section class="home-section" style={{ "margin-bottom": "var(--space-xl)" }}>
+          <h2 class="section-label">Design</h2>
+          <p class="prose">
+            The grain texture is inspired by analog photography and aged paper.
+            The warm color palette evokes darkroom prints.
+          </p>
+        </section>
 
-          <Section title="Source">
-            <p class="text-muted">
-              View the source on GitHub:{" "}
-              <a
-                href="https://github.com/f0rbit/thomas-materne"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                github.com/f0rbit/thomas-materne
-              </a>
-            </p>
-          </Section>
-        </div>
+        <hr class="divider" />
+
+        <footer class="text-muted text-sm" style={{ "text-align": "center" }}>
+          <p style={{ "margin-bottom": "var(--space-sm)" }}>Built with love and Claude.</p>
+          <p>
+            Source:{" "}
+            <a
+              href="https://github.com/f0rbit/thomas-materne"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              github.com/f0rbit/thomas-materne
+            </a>
+          </p>
+        </footer>
       </article>
     </Layout>
   );

@@ -16,7 +16,7 @@ const ProjectDetail: Component = () => {
     <Show 
       when={project()} 
       fallback={
-        <Layout back={{ href: "/work", label: "work" }}>
+        <Layout back={{ href: "/projects", label: "projects" }}>
           <Title>Project Not Found - Tom Materne</Title>
           <div class="page mt-xl">
             <h1 class="text-2xl mb-md">Project not found</h1>
@@ -26,7 +26,7 @@ const ProjectDetail: Component = () => {
       }
     >
       {(p) => (
-        <Layout back={{ href: "/work", label: "work" }}>
+        <Layout back={{ href: "/projects", label: "projects" }}>
           <Title>{p().name} - Tom Materne</Title>
           
           <article class="page">

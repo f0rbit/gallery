@@ -105,11 +105,38 @@ export const projects: Project[] = [
     featured: false,
     order: 6,
   },
+  {
+    slug: "clumsy-santa",
+    name: "Clumsy Santa",
+    description: "Game jam entry 2019",
+    year: "2019",
+    status: "finished",
+    tags: ["game-dev", "jam"],
+    github: "https://github.com/f0rbit/clumsy-santa",
+    featured: false,
+    order: 20,
+  },
+  {
+    slug: "java-timeline",
+    name: "java-timeline",
+    description: "GitHub/Reddit/Twitter timeline aggregator",
+    year: "2020",
+    status: "finished",
+    tags: ["java", "api"],
+    github: "https://github.com/f0rbit/java-timeline",
+    featured: false,
+    order: 21,
+  },
 ];
 
 export const getFeaturedProjects = () =>
   projects
     .filter(p => p.featured)
+    .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+
+export const getProjectsByStatus = (status: ProjectStatus) =>
+  projects
+    .filter(p => p.status === status)
     .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 
 export const getLiveProjects = () =>

@@ -876,3 +876,20 @@ a:hover {
     display: none;
   }
 }
+
+/* ==========================================================================
+   PAGE-SPECIFIC: About
+   ========================================================================== */
+
+.about-hero {
+  text-align: center;
+  padding: var(--space-hero) 0 var(--space-hero-below);
+}
+
+.about-hero .home-name {
+  margin-bottom: var(--space-sm);
+}
+
+.about-hero .home-tagline {
+  font-size: var(--text-sm);
+}

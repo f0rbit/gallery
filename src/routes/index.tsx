@@ -6,7 +6,7 @@ import { getLiveProjects, getDevProjects, type Project } from "~/data/projects";
 import { getLatestPosts, type BlogPost } from "~/data/posts";
 
 const navLinks = [
-  { label: "work", href: "/work" },
+  { label: "projects", href: "/projects" },
   { label: "about", href: "/about" },
   { label: "now", href: "/now" },
   { label: "colophon", href: "/colophon" },
@@ -20,7 +20,7 @@ const externalLinks = [
 
 const ProjectRow: Component<{ project: Project }> = (props) => {
   const hasExternalUrl = () => !!props.project.url;
-  const href = () => hasExternalUrl() ? props.project.url! : `/work/${props.project.slug}`;
+  const href = () => hasExternalUrl() ? props.project.url! : `/projects/${props.project.slug}`;
   const isExternal = () => hasExternalUrl();
 
   return (
@@ -39,7 +39,7 @@ const ProjectRow: Component<{ project: Project }> = (props) => {
 };
 
 const DevRow: Component<{ project: Project }> = (props) => {
-  const href = () => props.project.url ?? props.project.github ?? `/work/${props.project.slug}`;
+  const href = () => props.project.url ?? props.project.github ?? `/projects/${props.project.slug}`;
   const isExternal = () => !!props.project.url || !!props.project.github;
 
   return (

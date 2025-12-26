@@ -1,6 +1,5 @@
 import { Title, Meta } from "@solidjs/meta";
 import Layout from "~/components/layout/Layout";
-import "./about.css";
 
 const links = [
   { label: "github.com/f0rbit", href: "https://github.com/f0rbit" },
@@ -15,27 +14,24 @@ export default function About() {
       <Title>About — Tom Materne</Title>
       <Meta name="description" content="Software engineer, photographer, aspiring game developer. Brisbane, Australia." />
       
-      <article class="about">
-        
-        <header class="about__header">
-          <div class="about__portrait">
-            <div class="about__portrait-placeholder" aria-label="Portrait of Tom Materne" />
-          </div>
+      <article class="page">
+        <header class="flex gap-xl mt-xl items-start about-header">
+          <div class="portrait-placeholder" aria-label="Portrait of Tom Materne" />
           
-          <div class="about__intro">
-            <h1 class="about__name">Tom Materne</h1>
-            <p class="about__tagline">
+          <div class="mt-md">
+            <h1 class="page-title" style="text-align: left;">Tom Materne</h1>
+            <p class="text-lg text-muted leading-relaxed mb-md">
               Software engineer, photographer,<br />
               aspiring game developer.
             </p>
-            <p class="about__location">Brisbane, Australia.</p>
-            <p class="about__current">Currently at Amazon.</p>
+            <p class="text-sm text-subtle">Brisbane, Australia.</p>
+            <p class="text-sm text-subtle">Currently at Amazon.</p>
           </div>
         </header>
         
-        <hr class="about__divider" />
+        <hr class="divider" />
         
-        <section class="about__bio">
+        <section class="prose">
           <p>
             I make things at the intersection of technology and human experience. 
             My work ranges from civic technology (Chamber) to experimental games 
@@ -49,14 +45,14 @@ export default function About() {
           </p>
         </section>
         
-        <hr class="about__divider" />
+        <hr class="divider" />
         
-        <section class="about__elsewhere">
-          <h2 class="about__section-title">Elsewhere</h2>
-          <ul class="about__links">
+        <section class="section">
+          <h2 class="section-title">Elsewhere</h2>
+          <ul class="list-plain">
             {links.map((link) => (
               <li>
-                <a href={link.href}>{link.label}</a>
+                <a href={link.href} class="link-subtle text-sm">{link.label}</a>
               </li>
             ))}
           </ul>

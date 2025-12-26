@@ -5,7 +5,6 @@ import Layout from "~/components/layout/Layout";
 import { ProjectHero } from "~/components/project/ProjectHero";
 import { ProjectNav } from "~/components/project/ProjectNav";
 import { getProject, getAdjacentProjects } from "~/data/projects";
-import "./project.css";
 
 const ProjectDetail: Component = () => {
   const params = useParams<{ slug: string }>();
@@ -19,9 +18,9 @@ const ProjectDetail: Component = () => {
       fallback={
         <Layout back={{ href: "/work", label: "work" }}>
           <Title>Project Not Found - Tom Materne</Title>
-          <div class="project__not-found">
-            <h1>Project not found</h1>
-            <p>The project you're looking for doesn't exist.</p>
+          <div class="page mt-xl">
+            <h1 class="text-2xl mb-md">Project not found</h1>
+            <p class="text-muted">The project you're looking for doesn't exist.</p>
           </div>
         </Layout>
       }
@@ -30,34 +29,34 @@ const ProjectDetail: Component = () => {
         <Layout back={{ href: "/work", label: "work" }}>
           <Title>{p().title} - Tom Materne</Title>
           
-          <article class="project">
+          <article class="page">
             <ProjectHero project={p()} />
             
-            <section class="project__content">
-              <p class="project__description">{p().description}</p>
+            <section class="mt-lg">
+              <p class="text-lg text-muted leading-relaxed">{p().description}</p>
               
               <Show when={p().problem}>
-                <div class="project__section">
-                  <h2 class="project__section-title">Problem</h2>
-                  <p>{p().problem}</p>
+                <div class="section mt-xl">
+                  <h2 class="section-title">Problem</h2>
+                  <p class="text-muted leading-relaxed">{p().problem}</p>
                 </div>
               </Show>
               
               <Show when={p().approach}>
-                <div class="project__section">
-                  <h2 class="project__section-title">Approach</h2>
-                  <p>{p().approach}</p>
+                <div class="section mt-xl">
+                  <h2 class="section-title">Approach</h2>
+                  <p class="text-muted leading-relaxed">{p().approach}</p>
                 </div>
               </Show>
               
               <Show when={p().technicalNotes}>
-                <div class="project__section">
-                  <h2 class="project__section-title">Technical Notes</h2>
-                  <p>{p().technicalNotes}</p>
+                <div class="section mt-xl">
+                  <h2 class="section-title">Technical Notes</h2>
+                  <p class="text-muted leading-relaxed">{p().technicalNotes}</p>
                   <Show when={p().forbitLink}>
-                    <p class="project__forbit-link">
-                      <a href={p().forbitLink} target="_blank" rel="noopener noreferrer">
-                        Read more on forbit.dev &rarr;
+                    <p class="mt-md">
+                      <a href={p().forbitLink} class="text-sm" target="_blank" rel="noopener noreferrer">
+                        Read more on forbit.dev →
                       </a>
                     </p>
                   </Show>

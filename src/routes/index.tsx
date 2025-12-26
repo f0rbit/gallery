@@ -3,7 +3,6 @@ import { Title, Meta } from "@solidjs/meta";
 import { A } from "@solidjs/router";
 import Grain from "~/components/common/Grain";
 import ProjectCard from "~/components/project/ProjectCard";
-import "./index.css";
 
 const projects = [
   {
@@ -43,14 +42,14 @@ const Home: Component = () => {
       />
       <Grain />
       <div class="home">
-        <header class="home__hero">
-          <h1 class="home__name">THOMAS MATERNE</h1>
-          <p class="home__tagline">software · games · photography</p>
+        <header class="home-hero">
+          <h1 class="home-name">THOMAS MATERNE</h1>
+          <p class="home-tagline">software · games · photography</p>
         </header>
 
-        <hr class="home__divider" />
+        <hr class="divider" />
 
-        <section class="home__projects">
+        <section class="home-projects">
           <Index each={projects}>
             {(project) => (
               <ProjectCard
@@ -63,53 +62,51 @@ const Home: Component = () => {
           </Index>
         </section>
 
-        <hr class="home__divider" />
+        <hr class="divider" />
 
-        <section class="home__status">
-          <p class="home__currently">
+        <section class="home-status">
+          <p class="text-muted italic">
             Currently: Building mycelia, shipping Chamber v2
           </p>
         </section>
 
-        <nav class="home__nav">
+        <nav class="home-nav">
           <Index each={navLinks}>
             {(link, i) => (
               <>
-                <A href={link().href} class="home__nav-link">
+                <A href={link().href} class="link-nav tracking-wide">
                   {link().label}
                 </A>
-                {i < navLinks.length - 1 && (
-                  <span class="home__nav-separator" />
-                )}
+                {i < navLinks.length - 1 && <span class="home-nav-sep" />}
               </>
             )}
           </Index>
         </nav>
 
-        <hr class="home__divider" />
+        <hr class="divider" />
 
-        <footer class="home__footer">
-          <div class="home__external">
-            <span class="home__also">also:</span>
+        <footer class="home-footer">
+          <div class="home-external">
+            <span class="text-sm text-subtle">also:</span>
             <Index each={externalLinks}>
               {(link, i) => (
                 <>
                   <a
                     href={link().href}
-                    class="home__external-link"
+                    class="link-subtle text-sm"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     {link().label}
                   </a>
                   {i < externalLinks.length - 1 && (
-                    <span class="home__external-dot">·</span>
+                    <span class="text-subtle">·</span>
                   )}
                 </>
               )}
             </Index>
           </div>
-          <a href="mailto:tom@thomas-materne.com" class="home__email">
+          <a href="mailto:tom@thomas-materne.com" class="link-subtle text-sm">
             tom@thomas-materne.com
           </a>
         </footer>

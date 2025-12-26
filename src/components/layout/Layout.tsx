@@ -1,7 +1,6 @@
 import { Component, JSX, Show, Index } from "solid-js";
 import { A, useLocation } from "@solidjs/router";
 import Grain from "~/components/common/Grain";
-import "./layout.css";
 
 export type BackLink = {
   href: string;
@@ -23,7 +22,7 @@ const navLinks = [
 const externalLinks = [
   { href: "https://forbit.dev", label: "forbit.dev" },
   { href: "https://blends.blog", label: "blends.blog" },
-  { href: "https://github.com/tmaterne", label: "github" },
+  { href: "https://github.com/f0rbit", label: "github" },
 ] as const;
 
 const Layout: Component<Props> = (props) => {
@@ -35,26 +34,26 @@ const Layout: Component<Props> = (props) => {
       <Grain />
 
       <Show when={props.back}>
-        <header class="layout__header">
-          <A href={props.back!.href} class="layout__back">
-            <span class="layout__back-arrow">&larr;</span>
+        <header class="layout-header">
+          <A href={props.back!.href} class="link-back">
+            <span>&larr;</span>
             <span>{props.back!.label}</span>
           </A>
         </header>
       </Show>
 
-      <main class="layout__main">
+      <main class="layout-main">
         {props.children}
       </main>
 
-      <footer class="layout__footer">
-        <nav class="layout__nav">
+      <footer class="layout-footer">
+        <nav class="footer-nav">
           <Index each={navLinks}>
             {(link) => (
               <A
                 href={link().href}
-                class="layout__nav-link"
-                classList={{ "layout__nav-link--active": isActive(link().href) }}
+                class="link-nav"
+                classList={{ "text-primary": isActive(link().href) }}
               >
                 {link().label}
               </A>
@@ -62,30 +61,30 @@ const Layout: Component<Props> = (props) => {
           </Index>
         </nav>
 
-        <div class="layout__divider" />
+        <div class="footer-divider" />
 
-        <div class="layout__external">
+        <div class="footer-external">
           <Index each={externalLinks}>
             {(link, index) => (
               <>
                 <a
                   href={link().href}
-                  class="layout__external-link"
+                  class="link-subtle"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   {link().label}
                 </a>
                 <Show when={index < externalLinks.length - 1}>
-                  <span class="layout__external-dot">&middot;</span>
+                  <span class="text-subtle">&middot;</span>
                 </Show>
               </>
             )}
           </Index>
         </div>
 
-        <div class="layout__email">
-          <a href="mailto:tom@thomas-materne.com">tom@thomas-materne.com</a>
+        <div class="footer-email">
+          <a href="mailto:tom@thomas-materne.com" class="link-subtle">tom@thomas-materne.com</a>
         </div>
       </footer>
     </div>

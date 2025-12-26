@@ -1,6 +1,5 @@
 import { Show, For } from "solid-js";
 import type { Project } from "~/data/projects";
-import "./project-hero.css";
 
 type ProjectHeroProps = {
   project: Project;
@@ -17,18 +16,24 @@ const statusLabel = (status: Project["status"]): string => {
 
 export const ProjectHero = (props: ProjectHeroProps) => (
   <header class="project-hero">
-    <h1 class="project-hero__title">{props.project.title}</h1>
-    <p class="project-hero__tagline">{props.project.tagline}</p>
+    <h1 class="project-hero-title">{props.project.title}</h1>
+    <p class="project-hero-tagline">{props.project.tagline}</p>
     
-    <div class="project-hero__meta">
-      <span class="project-hero__year">{props.project.year}</span>
-      <span class="project-hero__status" data-status={props.project.status}>
+    <div class="project-hero-meta">
+      <span class="text-sm text-muted">{props.project.year}</span>
+      <span 
+        class="badge" 
+        classList={{
+          "badge--live": props.project.status === "live",
+          "badge--in-progress": props.project.status === "in-progress"
+        }}
+      >
         {statusLabel(props.project.status)}
       </span>
       <Show when={props.project.tags.length > 0}>
-        <div class="project-hero__tags">
+        <div class="flex gap-sm">
           <For each={props.project.tags}>
-            {(tag) => <span class="project-hero__tag">{tag}</span>}
+            {(tag) => <span class="tag">{tag}</span>}
           </For>
         </div>
       </Show>
@@ -37,11 +42,11 @@ export const ProjectHero = (props: ProjectHeroProps) => (
     <Show when={props.project.externalUrl}>
       <a 
         href={props.project.externalUrl} 
-        class="project-hero__link"
+        class="btn"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Visit site &rarr;
+        Visit site →
       </a>
     </Show>
   </header>

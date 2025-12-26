@@ -1,6 +1,5 @@
 import { Title, Meta } from "@solidjs/meta";
 import Layout from "~/components/layout/Layout";
-import "./now.css";
 
 type NowItem = {
   title: string;
@@ -36,14 +35,14 @@ const exploring: NowItem[] = [
 ];
 
 const NowSection = (props: { title: string; items: NowItem[] }) => (
-  <section class="now__section">
-    <h2 class="now__section-title">{props.title}</h2>
-    <ul class="now__items">
+  <section class="section">
+    <h2 class="section-title">{props.title}</h2>
+    <ul class="list-plain">
       {props.items.map((item) => (
-        <li class="now__item">
-          <strong class="now__item-title">{item.title}</strong>
-          <span class="now__item-sep"> — </span>
-          <span class="now__item-desc">
+        <li class="mb-lg leading-relaxed">
+          <strong class="font-semibold">{item.title}</strong>
+          <span class="text-subtle"> — </span>
+          <span class="text-muted">
             {item.description}
             {item.link && (
               <>
@@ -64,14 +63,13 @@ export default function Now() {
       <Title>Now — Tom Materne</Title>
       <Meta name="description" content="What I'm focused on right now. Updated December 2024." />
       
-      <article class="now">
-        
-        <header class="now__header">
-          <h1 class="now__title">Now</h1>
-          <p class="now__updated">Last updated: December 2024</p>
+      <article class="page">
+        <header class="page-header">
+          <h1 class="page-title">Now</h1>
+          <p class="page-subtitle">Last updated: December 2024</p>
         </header>
         
-        <hr class="now__divider" />
+        <hr class="divider" />
         
         <NowSection title="Building" items={building} />
         <NowSection title="Exploring" items={exploring} />

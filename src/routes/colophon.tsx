@@ -1,20 +1,19 @@
 import { Title, Meta } from "@solidjs/meta";
 import Layout from "~/components/layout/Layout";
-import "./colophon.css";
 
 const Section = (props: { title: string; children: any }) => (
-  <section class="colophon__section">
-    <h2 class="colophon__section-title">{props.title}</h2>
+  <section class="section">
+    <h2 class="section-title">{props.title}</h2>
     {props.children}
   </section>
 );
 
 const TechList = (props: { items: { label: string; value: string }[] }) => (
-  <ul class="colophon__list">
+  <ul class="def-list">
     {props.items.map((item) => (
-      <li class="colophon__list-item">
-        <span class="colophon__list-label">{item.label}:</span>
-        <span class="colophon__list-value">{item.value}</span>
+      <li class="def-item">
+        <span class="def-label">{item.label}:</span>
+        <span class="def-value">{item.value}</span>
       </li>
     ))}
   </ul>
@@ -26,17 +25,16 @@ export default function ColophonPage() {
       <Title>Colophon — Tom Materne</Title>
       <Meta name="description" content="How this site was made. Technology, typography, and design philosophy." />
 
-      <article class="colophon">
-
-        <header class="colophon__header">
-          <h1 class="colophon__title">Colophon</h1>
+      <article class="page">
+        <header class="page-header">
+          <h1 class="page-title">Colophon</h1>
         </header>
 
-        <hr class="colophon__divider" />
+        <hr class="divider" />
 
-        <div class="colophon__content">
+        <div class="flex flex-col gap-xl">
           <Section title="How This Site Was Made">
-            <p>
+            <p class="prose">
               This site is built with SolidStart and hand-crafted CSS.
               No frameworks, no component libraries—just intentional
               design decisions.
@@ -64,22 +62,24 @@ export default function ColophonPage() {
           </Section>
 
           <Section title="Design Philosophy">
-            <p>
-              This site is intentionally sparse. It's a gallery, not a
-              showcase of technical prowess. Every element earns its place.
-            </p>
-            <p>
-              The grain texture is inspired by analog photography and aged
-              paper. The warm color palette evokes darkroom prints.
-            </p>
+            <div class="prose">
+              <p>
+                This site is intentionally sparse. It's a gallery, not a
+                showcase of technical prowess. Every element earns its place.
+              </p>
+              <p>
+                The grain texture is inspired by analog photography and aged
+                paper. The warm color palette evokes darkroom prints.
+              </p>
+            </div>
           </Section>
 
           <Section title="Credits">
-            <p>Built with love and Claude.</p>
+            <p class="text-muted">Built with love and Claude.</p>
           </Section>
 
           <Section title="Source">
-            <p>
+            <p class="text-muted">
               View the source on GitHub:{" "}
               <a
                 href="https://github.com/f0rbit/thomas-materne"

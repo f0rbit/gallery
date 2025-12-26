@@ -1,9 +1,8 @@
 import { Component } from "solid-js";
-import "./in-progress.css";
 
 const InProgress: Component = () => (
   <div class="in-progress">
-    <span class="in-progress__icon" role="img" aria-label="hammer">
+    <span class="in-progress-icon" role="img" aria-label="hammer">
       <svg
         width="32"
         height="32"
@@ -19,7 +18,7 @@ const InProgress: Component = () => (
         <path d="M20.91 11.7l-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91" />
       </svg>
     </span>
-    <span class="in-progress__text">Under Construction</span>
+    <span class="in-progress-text">Under Construction</span>
   </div>
 );
 

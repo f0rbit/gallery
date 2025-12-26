@@ -24,8 +24,8 @@ const Grain: Component = () => (
         height: "100%",
         "pointer-events": "none",
         "z-index": 9999,
-        opacity: 0.35,
-        "mix-blend-mode": "overlay",
+        opacity: 0.5,
+        "mix-blend-mode": "lighten",
       }}
     >
       <defs>

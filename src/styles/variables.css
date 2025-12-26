@@ -31,16 +31,16 @@
   /* -------------------------------------------------------------------------
      Typography Scale - Major Third (1.25)
      
-     Base: 15px for refined, minimal aesthetic.
+     Base: 16px for refined, minimal aesthetic.
      Inspired by milos.design and kulpinski.dev.
      ------------------------------------------------------------------------- */
-  --text-xs: 0.75rem;      /* 12px - fine print, metadata */
-  --text-sm: 0.8125rem;    /* 13px - captions, secondary */
-  --text-base: 0.9375rem;  /* 15px - body copy */
-  --text-lg: 1.0625rem;    /* 17px - lead paragraphs */
-  --text-xl: 1.375rem;     /* 22px - section headings */
-  --text-2xl: 1.75rem;     /* 28px - page titles */
-  --text-3xl: 2.5rem;      /* 40px - hero display */
+  --text-xs: 0.8125rem;    /* 13px - fine print, metadata */
+  --text-sm: 0.875rem;     /* 14px - captions, secondary */
+  --text-base: 1rem;       /* 16px - body copy */
+  --text-lg: 1.125rem;     /* 18px - lead paragraphs */
+  --text-xl: 1.5rem;       /* 24px - section headings */
+  --text-2xl: 2rem;        /* 32px - page titles */
+  --text-3xl: 2.75rem;     /* 44px - hero display */
 
   /* -------------------------------------------------------------------------
      Spacing - Consistent rhythm

@@ -54,14 +54,26 @@ body {
 
 a {
   color: var(--accent-ink);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 a:hover {
   color: var(--accent-rust);
+}
+
+/* Underline utility - animates from left to right on hover */
+.link-underline {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--transition-fast), color var(--transition-fast);
+}
+
+.link-underline:hover {
+  background-size: 100% 1px;
 }
 
 ::selection {
@@ -790,6 +802,9 @@ a:hover {
 
 .project-row:hover .project-name {
   color: var(--accent-rust);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-rust);
+  text-underline-offset: 2px;
 }
 
 .project-year {
@@ -820,6 +835,7 @@ a:hover {
   padding: var(--space-xs) 0;
   font-size: var(--text-sm);
   color: var(--text-muted);
+  text-decoration: none;
 }
 
 .dev-row::before {
@@ -829,6 +845,14 @@ a:hover {
 
 .dev-name {
   color: var(--text-primary);
+  transition: color var(--transition-fast);
+}
+
+.dev-row:hover .dev-name {
+  color: var(--accent-rust);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-rust);
+  text-underline-offset: 2px;
 }
 
 .post-row {
@@ -842,6 +866,9 @@ a:hover {
 
 .post-row:hover .post-title {
   color: var(--text-primary);
+  text-decoration: underline;
+  text-decoration-color: var(--text-primary);
+  text-underline-offset: 2px;
 }
 
 .post-date {

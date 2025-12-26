@@ -1,0 +1,26 @@
+# Node/Bun dependencies
+node_modules/
+
+# Build outputs
+.output/
+.vinxi/
+dist/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# TypeScript
+*.tsbuildinfo

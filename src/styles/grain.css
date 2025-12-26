@@ -1,0 +1,160 @@
+/* ==========================================================================
+   Grain & Texture Effects
+   
+   Organic film grain overlay using SVG feTurbulence.
+   Creates a warm, analog aesthetic reminiscent of aged photographs.
+   ========================================================================== */
+
+/* -------------------------------------------------------------------------
+   SVG Noise Filter Definition
+   
+   This SVG is embedded in the document and referenced by CSS.
+   The filter creates procedural noise that tiles seamlessly.
+   
+   Parameters:
+   - baseFrequency: 0.65 creates fine, film-like grain
+   - numOctaves: 4 adds complexity and organic variation
+   - stitchTiles: "stitch" ensures seamless tiling
+   - feColorMatrix saturate(0) converts to grayscale
+   - opacity: 0.12 with multiply blend for darkroom print aesthetic
+   ------------------------------------------------------------------------- */
+.grain-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* -------------------------------------------------------------------------
+   Grain Overlay
+   
+   Applied as a fixed pseudo-element covering the entire viewport.
+   Opacity tuned for organic film grain: visible but not distracting.
+   Blends with the warm background colors.
+   ------------------------------------------------------------------------- */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  isolation: isolate;
+}
+
+.grain-overlay::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+}
+
+/* -------------------------------------------------------------------------
+   Alternative: CSS-only grain using filter
+   
+   For browsers with full SVG filter support, this creates
+   a more dynamic grain effect directly on a pseudo-element.
+   ------------------------------------------------------------------------- */
+.grain-filter::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.12;
+  filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3C/svg%3E#grain");
+}
+
+/* -------------------------------------------------------------------------
+   Image Hover Effects
+   
+   Subtle warmth and grain treatment for project images.
+   Creates a cohesive, curated gallery feel.
+   ------------------------------------------------------------------------- */
+.project-image {
+  filter: grayscale(10%) sepia(5%);
+  transition: filter var(--transition-base);
+}
+
+.project-image:hover {
+  filter: grayscale(0%) sepia(0%);
+}
+
+/* -------------------------------------------------------------------------
+   Warm Image Treatment
+   
+   For images that should maintain the warm aesthetic on hover.
+   Shifts from slightly desaturated to full color.
+   ------------------------------------------------------------------------- */
+.image-warm {
+  filter: sepia(8%) saturate(95%);
+  transition: filter var(--transition-base), transform var(--transition-base);
+}
+
+.image-warm:hover {
+  filter: sepia(0%) saturate(100%);
+  transform: scale(1.02);
+}
+
+/* -------------------------------------------------------------------------
+   Gallery Card Effects
+   
+   Combined hover treatment for project cards with images.
+   Subtle lift and color restoration on interaction.
+   ------------------------------------------------------------------------- */
+.gallery-card {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.gallery-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+.gallery-card img {
+  filter: grayscale(8%) sepia(4%);
+  transition: filter var(--transition-slow);
+}
+
+.gallery-card:hover img {
+  filter: grayscale(0%) sepia(0%);
+}
+
+/* -------------------------------------------------------------------------
+   Paper Texture Effect
+   
+   For sections needing additional tactile quality.
+   Combines with grain overlay for layered texture.
+   ------------------------------------------------------------------------- */
+.paper-texture {
+  background-color: var(--bg-cream);
+  background-image: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5'/%3E%3CfeDiffuseLighting lighting-color='%23FAF8F5' surfaceScale='2'%3E%3CfeDistantLight azimuth='45' elevation='60'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
+  background-blend-mode: soft-light;
+}
+
+/* -------------------------------------------------------------------------
+   Vignette Effect
+   
+   Subtle darkening at edges for photographic depth.
+   Optional enhancement for full-bleed image sections.
+   ------------------------------------------------------------------------- */
+.vignette {
+  position: relative;
+}
+
+.vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(44, 40, 37, 0.08) 100%
+  );
+}

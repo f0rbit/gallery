@@ -1,0 +1,11 @@
+/* ==========================================================================
+   Divider - Subtle section separator
+   ========================================================================== */
+
+.divider {
+  border: none;
+  height: 1px;
+  background: var(--text-subtle);
+  opacity: 0.3;
+  margin: 4rem 0;
+}

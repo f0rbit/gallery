@@ -1,0 +1,81 @@
+/* ==========================================================================
+   CSS Custom Properties - Design System Foundation
+   
+   Warm paper aesthetic with organic, gallery-like qualities.
+   Built for thomas-materne.com portfolio site.
+   ========================================================================== */
+
+:root {
+  /* -------------------------------------------------------------------------
+     Colors - Warm Paper Aesthetic
+     
+     Concept: aged photographs, darkroom tones, cream paper.
+     Nothing is pure black/white—everything has temperature.
+     ------------------------------------------------------------------------- */
+  
+  /* Backgrounds - Layered warmth */
+  --bg-cream: #FAF8F5;
+  --bg-warm: #F5F1EB;
+  --bg-stone: #E8E4DD;
+  
+  /* Text - Warm near-blacks */
+  --text-primary: #2C2825;
+  --text-muted: #6B6560;
+  --text-subtle: #9C9690;
+  
+  /* Accents - Used sparingly */
+  --accent-rust: #A65D3F;
+  --accent-sage: #7A8B6E;
+  --accent-ink: #3D4F5F;
+
+  /* -------------------------------------------------------------------------
+     Typography Scale - Perfect Fourth (1.333)
+     
+     Base: 18px for generous readability.
+     Each step multiplied by 1.333 for harmonious scaling.
+     ------------------------------------------------------------------------- */
+  --text-xs: 0.75rem;      /* 13.5px - fine print, metadata */
+  --text-sm: 0.875rem;     /* 15.75px - captions, secondary */
+  --text-base: 1rem;       /* 18px - body copy */
+  --text-lg: 1.333rem;     /* 24px - lead paragraphs */
+  --text-xl: 1.777rem;     /* 32px - section headings */
+  --text-2xl: 2.369rem;    /* 42.6px - page titles */
+  --text-3xl: 3.157rem;    /* 56.8px - hero display */
+
+  /* -------------------------------------------------------------------------
+     Spacing - Consistent rhythm
+     
+     Based on multiples of 0.25rem (4px) for pixel-perfect alignment.
+     Generous spacing reflects the "garden" philosophy.
+     ------------------------------------------------------------------------- */
+  --space-xs: 0.25rem;     /* 4px */
+  --space-sm: 0.5rem;      /* 8px */
+  --space-md: 1rem;        /* 16px */
+  --space-lg: 2rem;        /* 32px */
+  --space-xl: 4rem;        /* 64px */
+  --space-2xl: 6rem;       /* 96px */
+  --space-3xl: 8rem;       /* 128px */
+
+  /* -------------------------------------------------------------------------
+     Layout - Content boundaries
+     
+     max-width: Full layout container
+     content-width: Optimal reading width (~65-75 characters)
+     ------------------------------------------------------------------------- */
+  --max-width: 72rem;      /* 1152px */
+  --content-width: 42rem;  /* 672px */
+
+  /* -------------------------------------------------------------------------
+     Transitions - Organic, unhurried
+     ------------------------------------------------------------------------- */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+
+  /* -------------------------------------------------------------------------
+     Borders & Shadows - Subtle, warm
+     ------------------------------------------------------------------------- */
+  --border-subtle: 1px solid rgba(44, 40, 37, 0.08);
+  --border-light: 1px solid rgba(44, 40, 37, 0.12);
+  --shadow-soft: 0 4px 20px rgba(44, 40, 37, 0.06);
+}

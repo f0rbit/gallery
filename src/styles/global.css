@@ -572,9 +572,16 @@ a:hover {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--space-3xl) var(--space-lg) var(--space-xl);
+  padding: 0 var(--space-lg);
+}
+
+.home-content {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  width: 100%;
 }
 
 .home-hero {

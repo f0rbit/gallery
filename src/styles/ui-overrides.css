@@ -1,0 +1,57 @@
+/* ==========================================================================
+   @f0rbit/ui Theme Overrides
+   
+   Maps the gallery's warm paper aesthetic to @f0rbit/ui CSS variables.
+   ========================================================================== */
+
+:root {
+  /* Background colors */
+  --bg: var(--bg-cream);
+  --bg-secondary: var(--bg-warm);
+  --bg-tertiary: var(--bg-stone);
+  
+  /* Foreground/text colors */
+  --fg: var(--text-primary);
+  --fg-muted: var(--text-muted);
+  --fg-subtle: var(--text-subtle);
+  --fg-faint: var(--text-subtle);
+  
+  /* Accent color */
+  --accent: var(--accent-rust);
+  --accent-fg: var(--bg-cream);
+  
+  /* Border colors */
+  --border: rgba(44, 40, 37, 0.12);
+  --border-muted: rgba(44, 40, 37, 0.08);
+  
+  /* Component-specific overrides */
+  --card-bg: var(--bg-warm);
+  --card-border: var(--border-muted);
+  
+  /* Button overrides */
+  --button-primary-bg: var(--accent-ink);
+  --button-primary-fg: var(--bg-cream);
+  --button-secondary-bg: transparent;
+  --button-secondary-fg: var(--text-primary);
+  --button-secondary-border: var(--text-muted);
+  
+  /* Badge overrides */
+  --badge-bg: var(--bg-stone);
+  --badge-fg: var(--text-muted);
+  
+  /* Timeline overrides */
+  --timeline-line: var(--text-subtle);
+  --timeline-dot: var(--accent-rust);
+  
+  /* Spacing - match gallery system */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+  
+  /* Border radius - minimal for gallery aesthetic */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+}

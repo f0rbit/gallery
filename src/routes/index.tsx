@@ -2,57 +2,22 @@ import { Component, For } from "solid-js";
 import { Title, Meta } from "@solidjs/meta";
 import { A } from "@solidjs/router";
 import Grain from "~/components/common/Grain";
-import { getLiveProjects, getDevProjects, type Project } from "~/data/projects";
+import { getFeaturedProjects, type Project } from "~/data/projects";
 import { getLatestPosts, type BlogPost } from "~/data/posts";
 
 const navLinks = [
-  { label: "projects", href: "/projects" },
   { label: "about", href: "/about" },
   { label: "now", href: "/now" },
-  { label: "colophon", href: "/colophon" },
-];
-
-const externalLinks = [
-  { label: "forbit.dev", href: "https://forbit.dev" },
-  { label: "blends.blog", href: "https://blends.blog" },
-  { label: "github", href: "https://github.com/f0rbit" },
 ];
 
 const ProjectRow: Component<{ project: Project }> = (props) => {
-  const hasExternalUrl = () => !!props.project.url;
-  const href = () => hasExternalUrl() ? props.project.url! : `/projects/${props.project.slug}`;
-  const isExternal = () => hasExternalUrl();
+  const href = () => `/projects/${props.project.slug}`;
 
   return (
-    <a
-      href={href()}
-      class="project-row"
-      target={isExternal() ? "_blank" : undefined}
-      rel={isExternal() ? "noopener noreferrer" : undefined}
-    >
+    <a href={href()} class="project-row">
       <span class="project-year">{props.project.year}</span>
       <span class="project-name">{props.project.name}</span>
       <span class="project-tags">{props.project.tags.join(", ")}</span>
-      {isExternal() && <span class="project-link-indicator">↗</span>}
-    </a>
-  );
-};
-
-const DevRow: Component<{ project: Project }> = (props) => {
-  const href = () => props.project.url ?? props.project.github ?? `/projects/${props.project.slug}`;
-  const isExternal = () => !!props.project.url || !!props.project.github;
-
-  return (
-    <a
-      href={href()}
-      class="dev-row"
-      target={isExternal() ? "_blank" : undefined}
-      rel={isExternal() ? "noopener noreferrer" : undefined}
-    >
-      <span class="dev-name">{props.project.name}</span>
-      <span>—</span>
-      <span>{props.project.description}</span>
-      {isExternal() && <span>→</span>}
     </a>
   );
 };
@@ -70,8 +35,7 @@ const PostRow: Component<{ post: BlogPost }> = (props) => (
 );
 
 const Home: Component = () => {
-  const liveProjects = getLiveProjects();
-  const devProjects = getDevProjects();
+  const projects = getFeaturedProjects();
   const latestPosts = getLatestPosts(3);
 
   return (
@@ -91,15 +55,8 @@ const Home: Component = () => {
         <div class="home-content">
           <section class="home-section" style={{ "margin-bottom": "var(--space-section)" }}>
             <h2 class="section-label">Selected Work</h2>
-            <For each={liveProjects}>
+            <For each={projects}>
               {(project) => <ProjectRow project={project} />}
-            </For>
-          </section>
-
-          <section class="home-section" style={{ "margin-bottom": "var(--space-section)" }}>
-            <h2 class="section-label">In Development</h2>
-            <For each={devProjects}>
-              {(project) => <DevRow project={project} />}
             </For>
           </section>
 
@@ -125,33 +82,6 @@ const Home: Component = () => {
               )}
             </For>
           </nav>
-
-          <hr class="divider" />
-
-          <footer class="home-footer">
-            <div class="home-external">
-              <For each={externalLinks}>
-                {(link, i) => (
-                  <>
-                    <a
-                      href={link.href}
-                      class="link-subtle text-sm"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {link.label}
-                    </a>
-                    {i() < externalLinks.length - 1 && (
-                      <span class="text-subtle">·</span>
-                    )}
-                  </>
-                )}
-              </For>
-            </div>
-            <a href="mailto:tom@thomas-materne.com" class="link-subtle text-sm">
-              tom@thomas-materne.com
-            </a>
-          </footer>
         </div>
       </div>
     </>

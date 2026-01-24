@@ -1,4 +1,4 @@
-export type ProjectStatus = "live" | "development" | "paused" | "finished";
+export type ProjectStatus = "live" | "development";
 
 export type Project = {
   slug: string;
@@ -9,11 +9,28 @@ export type Project = {
   tags: string[];
   url?: string;
   github?: string;
-  featured: boolean;
-  order?: number;
 };
 
 export const projects: Project[] = [
+  {
+    slug: "corpus",
+    name: "Corpus",
+    description: "Functional snapshotting library for TypeScript",
+    year: "2025",
+    status: "live",
+    tags: ["typescript", "library"],
+    github: "https://github.com/f0rbit/corpus",
+  },
+  {
+    slug: "devpad",
+    name: "Devpad",
+    description: "Task tracking for developers with codebase scanning",
+    year: "2022",
+    status: "live",
+    tags: ["developer-tools"],
+    url: "https://devpad.tools",
+    github: "https://github.com/f0rbit/devpad",
+  },
   {
     slug: "chamber",
     name: "Chamber",
@@ -23,138 +40,32 @@ export const projects: Project[] = [
     tags: ["civic-tech", "AI"],
     url: "https://chamber.net.au",
     github: "https://github.com/f0rbit/chamber",
-    featured: true,
-    order: 1,
-  },
-  {
-    slug: "devpad",
-    name: "devpad",
-    description: "Development lifecycle tools",
-    year: "2024",
-    status: "live",
-    tags: ["developer-tools"],
-    url: "https://devpad.tools",
-    github: "https://github.com/f0rbit/devpad",
-    featured: true,
-    order: 2,
-  },
-  {
-    slug: "corpus",
-    name: "corpus",
-    description: "Functional snapshotting library for TypeScript",
-    year: "2024",
-    status: "live",
-    tags: ["typescript", "library"],
-    github: "https://github.com/f0rbit/corpus",
-    featured: true,
-    order: 3,
-  },
-  {
-    slug: "mycelia",
-    name: "mycelia",
-    description: "Framework for interconnected digital gardens",
-    year: "2024",
-    status: "development",
-    tags: ["framework"],
-    github: "https://github.com/f0rbit/mycelia",
-    featured: true,
-    order: 10,
-  },
-  {
-    slug: "burning-blends",
-    name: "burning-blends",
-    description: "Blog site for creative side",
-    year: "2024",
-    status: "development",
-    tags: ["blog"],
-    url: "https://blends.blog",
-    github: "https://github.com/f0rbit/burning-blends",
-    featured: true,
-    order: 11,
-  },
-  {
-    slug: "dungeon-generator",
-    name: "dungeon-generator",
-    description: "Java library for generating 2D dungeons",
-    year: "2019",
-    status: "live",
-    tags: ["java", "game-dev"],
-    github: "https://github.com/f0rbit/dungeon-generator",
-    featured: true,
-    order: 4,
-  },
-  {
-    slug: "gm-server",
-    name: "gm-server",
-    description: "Java-GameMaker server framework",
-    year: "2020",
-    status: "live",
-    tags: ["java", "gamemaker"],
-    github: "https://github.com/f0rbit/gm-server",
-    featured: false,
-    order: 5,
-  },
-  {
-    slug: "todo-tracker",
-    name: "todo-tracker",
-    description: "CLI for tracking code TODOs",
-    year: "2023",
-    status: "live",
-    tags: ["cli", "developer-tools"],
-    github: "https://github.com/f0rbit/todo-tracker",
-    featured: false,
-    order: 6,
-  },
-  {
-    slug: "clumsy-santa",
-    name: "Clumsy Santa",
-    description: "Game jam entry 2019",
-    year: "2019",
-    status: "finished",
-    tags: ["game-dev", "jam"],
-    github: "https://github.com/f0rbit/clumsy-santa",
-    featured: false,
-    order: 20,
-  },
-  {
-    slug: "java-timeline",
-    name: "java-timeline",
-    description: "GitHub/Reddit/Twitter timeline aggregator",
-    year: "2020",
-    status: "finished",
-    tags: ["java", "api"],
-    github: "https://github.com/f0rbit/java-timeline",
-    featured: false,
-    order: 21,
   },
 ];
 
-export const getFeaturedProjects = () =>
-  projects
-    .filter(p => p.featured)
-    .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+/**
+ * Get all projects (all 3 are featured)
+ */
+export function getFeaturedProjects(): Project[] {
+  return projects;
+}
 
-export const getProjectsByStatus = (status: ProjectStatus) =>
-  projects
-    .filter(p => p.status === status)
-    .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+/**
+ * Get a project by slug
+ */
+export function getProject(slug: string): Project | undefined {
+  return projects.find(p => p.slug === slug);
+}
 
-export const getLiveProjects = () =>
-  getFeaturedProjects().filter(p => p.status === "live" || p.status === "finished");
-
-export const getDevProjects = () =>
-  getFeaturedProjects().filter(p => p.status === "development");
-
-export const getProject = (slug: string): Project | undefined =>
-  projects.find(p => p.slug === slug);
-
-export const getAdjacentProjects = (slug: string): { prev?: Project; next?: Project } => {
-  const featured = getFeaturedProjects();
-  const index = featured.findIndex(p => p.slug === slug);
+/**
+ * Get adjacent projects for navigation
+ */
+export function getAdjacentProjects(slug: string): { prev?: Project; next?: Project } {
+  const index = projects.findIndex(p => p.slug === slug);
   if (index === -1) return {};
 
   return {
-    prev: index > 0 ? featured[index - 1] : undefined,
-    next: index < featured.length - 1 ? featured[index + 1] : undefined,
+    prev: index > 0 ? projects[index - 1] : undefined,
+    next: index < projects.length - 1 ? projects[index + 1] : undefined,
   };
-};
+}

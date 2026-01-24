@@ -13,10 +13,6 @@ const building: NowItem[] = [
     description: "Adding historical context and improved summarization",
   },
   {
-    name: "mycelia",
-    description: "Framework for interconnected digital gardens",
-  },
-  {
     name: "devpad",
     description: "Daily driver for project tracking",
     link: { label: "devpad.tools", href: "https://devpad.tools" },

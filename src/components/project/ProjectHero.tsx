@@ -9,8 +9,6 @@ const statusLabel = (status: Project["status"]): string => {
   const labels: Record<Project["status"], string> = {
     "live": "Live",
     "development": "In Development",
-    "paused": "Paused",
-    "finished": "Finished"
   };
   return labels[status];
 };

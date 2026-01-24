@@ -1,0 +1,169 @@
+/* ==========================================================================
+   About Page Styles
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   Professional Summary
+   --------------------------------------------------------------------------- */
+.about-summary {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.about-role {
+  font-size: var(--text-lg);
+  color: var(--text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.about-location {
+  font-size: var(--text-sm);
+  color: var(--text-subtle);
+}
+
+/* ---------------------------------------------------------------------------
+   Philosophy Section
+   --------------------------------------------------------------------------- */
+.about-philosophy {
+  max-width: 50ch;
+  margin: 0 auto var(--space-2xl);
+  text-align: center;
+}
+
+.about-philosophy blockquote {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+.about-philosophy blockquote::before,
+.about-philosophy blockquote::after {
+  content: '"';
+  color: var(--accent-rust);
+}
+
+/* ---------------------------------------------------------------------------
+   Journey Timeline
+   --------------------------------------------------------------------------- */
+.journey-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.journey-timeline {
+  padding: var(--space-lg);
+  background: var(--bg-warm);
+  border: var(--border-subtle);
+}
+
+/* ---------------------------------------------------------------------------
+   Properties Section (Gallery/Workshop/Journal)
+   --------------------------------------------------------------------------- */
+.about-properties {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .about-properties {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
+
+.property-item {
+  padding: var(--space-md);
+}
+
+.property-name {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.property-desc {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.property-link {
+  font-size: var(--text-xs);
+  color: var(--accent-ink);
+}
+
+.property-link:hover {
+  color: var(--accent-rust);
+}
+
+/* ---------------------------------------------------------------------------
+   Hobbies
+   --------------------------------------------------------------------------- */
+.hobbies-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.hobbies-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: center;
+}
+
+.hobby-item {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-warm);
+  border: var(--border-subtle);
+  transition: all var(--transition-fast);
+}
+
+.hobby-item:hover {
+  background: var(--bg-stone);
+  color: var(--text-primary);
+}
+
+.hobby-item--no-link {
+  cursor: default;
+}
+
+.hobby-item--no-link:hover {
+  background: var(--bg-warm);
+  color: var(--text-muted);
+}
+
+/* ---------------------------------------------------------------------------
+   Elsewhere Links
+   --------------------------------------------------------------------------- */
+.elsewhere-section {
+  text-align: center;
+}
+
+.elsewhere-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.elsewhere-link {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.elsewhere-link:hover {
+  color: var(--text-primary);
+}

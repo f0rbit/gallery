@@ -84,3 +84,20 @@
   --border-light: 1px solid rgba(44, 40, 37, 0.12);
   --shadow-soft: 0 4px 20px rgba(44, 40, 37, 0.06);
 }
+
+/* -------------------------------------------------------------------------
+   Responsive Overrides
+   
+   Scale down hero spacing and large type on narrow viewports.
+   Breakpoint at 640px covers phones in portrait (320–430px).
+   ------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  :root {
+    --text-2xl: 1.75rem;       /* 28px ← 32px */
+    --text-3xl: 2rem;          /* 32px ← 44px */
+    --space-hero: 5rem;        /* 80px ← 160px */
+    --space-hero-below: 3rem;  /* 48px ← 96px */
+    --space-2xl: 4rem;         /* 64px ← 96px */
+    --space-3xl: 5rem;         /* 80px ← 128px */
+  }
+}

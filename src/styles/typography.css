@@ -1,21 +1,20 @@
 /* ==========================================================================
    Typography - Font Definitions & Text Styles
    
-   Display: Georgia, serif (placeholder for Fraunces variable font)
-   Body: system-ui, sans-serif (placeholder for IBM Plex Sans)
+   Display: Georgia, serif (Georgia chosen for warm, editorial character)
+   Body: system-ui, sans-serif (System UI stack for clean, fast body text)
    
-   When self-hosting fonts in production:
-   - Fraunces for display (organic wobble, matches grain texture)
-   - IBM Plex Sans for body (technical DNA, clean but not sterile)
+   System fonts are a deliberate choice for this site:
+   - Instant loading with zero FOUT — matches the snappy SSG approach
+   - Georgia's warm serifs complement the paper/grain aesthetic
+   - Native system-ui feels clean without being sterile
    ========================================================================== */
 
 /* -------------------------------------------------------------------------
    Font Stacks
    
-   Using system fonts as MVP fallbacks. These provide:
-   - Instant loading (no FOIT/FOUT)
-   - Native feel on each platform
-   - Reasonable approximation of target fonts
+   Georgia + system-ui: fast, native, intentional.
+   No web fonts needed — these serve the design well.
    ------------------------------------------------------------------------- */
 :root {
   --font-display: Georgia, "Times New Roman", serif;

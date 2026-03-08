@@ -1,6 +1,6 @@
-import { Component, Show, createMemo } from "solid-js";
+import { Component, Show } from "solid-js";
 import { Title, Meta } from "@solidjs/meta";
-import { useParams } from "@solidjs/router";
+import { useParams, createAsync, cache, type RouteDefinition } from "@solidjs/router";
 import Layout from "~/components/layout/Layout";
 import { ProjectHero } from "~/components/project/ProjectHero";
 import { ProjectNav } from "~/components/project/ProjectNav";
@@ -11,17 +11,28 @@ import { ProjectTech } from "~/components/project/ProjectTech";
 import { getProject, getAdjacentProjects } from "~/data/projects";
 import { getProjectContent, hasProjectContent } from "~/data/project-content";
 
+const getProjectData = cache(async (slug: string) => {
+  const [project, adjacent] = await Promise.all([
+    getProject(slug),
+    getAdjacentProjects(slug),
+  ]);
+  if (!project) return null;
+  const content = getProjectContent(slug);
+  const hasContent = hasProjectContent(slug);
+  return { project, adjacent, content, hasContent };
+}, "project-data");
+
+export const route = {
+  preload: ({ params }) => getProjectData(params.slug!),
+} satisfies RouteDefinition;
+
 const ProjectDetail: Component = () => {
   const params = useParams<{ slug: string }>();
-  
-  const project = createMemo(() => getProject(params.slug));
-  const adjacent = createMemo(() => getAdjacentProjects(params.slug));
-  const content = createMemo(() => getProjectContent(params.slug));
-  const hasFeaturedContent = createMemo(() => hasProjectContent(params.slug));
+  const data = createAsync(() => getProjectData(params.slug));
 
   return (
     <Show 
-      when={project()} 
+      when={data()} 
       fallback={
         <Layout back={{ href: "/", label: "home" }}>
           <Title>Project Not Found - Tom Materne</Title>
@@ -32,27 +43,27 @@ const ProjectDetail: Component = () => {
         </Layout>
       }
     >
-      {(p) => (
+      {(d) => (
         <Layout back={{ href: "/", label: "home" }}>
-          <Title>{p().name} — Tom Materne</Title>
+          <Title>{d().project.name} — Tom Materne</Title>
           <Meta 
             name="description" 
-            content={content()?.problem?.slice(0, 160) || p().description} 
+            content={d().content?.problem?.slice(0, 160) || d().project.description} 
           />
           
           <article class="page">
             {/* Featured project indicator */}
-            <Show when={hasFeaturedContent()}>
+            <Show when={d().hasContent}>
               <div class="project-featured-badge">Featured Project</div>
             </Show>
 
             {/* Hero section - always shown */}
-            <ProjectHero project={p()} />
+            <ProjectHero project={d().project} />
             
             <hr class="divider" />
 
             {/* Rich content for featured projects */}
-            <Show when={content()}>
+            <Show when={d().content}>
               {(c) => (
                 <>
                   {/* The Story */}
@@ -87,16 +98,16 @@ const ProjectDetail: Component = () => {
             </Show>
 
             {/* Fallback for non-featured projects */}
-            <Show when={!hasFeaturedContent()}>
+            <Show when={!d().hasContent}>
               <section class="prose">
-                <p>{p().description}</p>
+                <p>{d().project.description}</p>
               </section>
 
-              <Show when={p().github || p().url}>
+              <Show when={d().project.github || d().project.url}>
                 <div class="project-links mt-lg">
-                  <Show when={p().url}>
+                  <Show when={d().project.url}>
                     <a 
-                      href={p().url} 
+                      href={d().project.url} 
                       class="project-link" 
                       target="_blank" 
                       rel="noopener noreferrer"
@@ -104,9 +115,9 @@ const ProjectDetail: Component = () => {
                       Visit Site →
                     </a>
                   </Show>
-                  <Show when={p().github}>
+                  <Show when={d().project.github}>
                     <a 
-                      href={p().github} 
+                      href={d().project.github} 
                       class="project-link" 
                       target="_blank" 
                       rel="noopener noreferrer"
@@ -119,7 +130,7 @@ const ProjectDetail: Component = () => {
             </Show>
 
             {/* Navigation to adjacent projects */}
-            <ProjectNav prev={adjacent().prev} next={adjacent().next} />
+            <ProjectNav prev={d().adjacent.prev ?? undefined} next={d().adjacent.next ?? undefined} />
           </article>
         </Layout>
       )}

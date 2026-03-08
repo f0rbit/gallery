@@ -1,10 +1,20 @@
-import { Component, For } from "solid-js";
+import { Component, For, Show } from "solid-js";
 import { Title, Meta } from "@solidjs/meta";
-import { A } from "@solidjs/router";
+import { A, cache, createAsync } from "@solidjs/router";
 import Layout from "~/components/layout/Layout";
 import { getFeaturedProjects, type Project } from "~/data/projects";
 import { getLatestPosts, type BlogPost } from "~/data/posts";
 import { navLinks } from "~/data/links";
+
+const getHomeData = cache(async () => {
+  const [projects, posts] = await Promise.all([
+    getFeaturedProjects(),
+    getLatestPosts(3),
+  ]);
+  return { projects, posts };
+}, "home-data");
+
+export const route = { preload: () => getHomeData() };
 
 const ProjectRow: Component<{ project: Project }> = (props) => {
   const href = () => `/projects/${props.project.slug}`;
@@ -31,8 +41,7 @@ const PostRow: Component<{ post: BlogPost }> = (props) => (
 );
 
 const Home: Component = () => {
-  const projects = getFeaturedProjects();
-  const latestPosts = getLatestPosts(3);
+  const data = createAsync(() => getHomeData());
 
   return (
     <>
@@ -51,16 +60,24 @@ const Home: Component = () => {
         <div class="home-content">
           <section class="home-section" style={{ "margin-bottom": "var(--space-section)" }}>
             <h2 class="section-label">Selected Work</h2>
-            <For each={projects}>
-              {(project) => <ProjectRow project={project} />}
-            </For>
+            <Show when={data()?.projects}>
+              {(projects) => (
+                <For each={projects()}>
+                  {(project) => <ProjectRow project={project} />}
+                </For>
+              )}
+            </Show>
           </section>
 
           <section class="home-section" style={{ "margin-bottom": "var(--space-section)" }}>
             <h2 class="section-label">Latest Writing</h2>
-            <For each={latestPosts}>
-              {(post) => <PostRow post={post} />}
-            </For>
+            <Show when={data()?.posts}>
+              {(posts) => (
+                <For each={posts()}>
+                  {(post) => <PostRow post={post} />}
+                </For>
+              )}
+            </Show>
             <a href="https://forbit.dev/blog" class="link-more" target="_blank" rel="noopener noreferrer">
               all posts →
             </a>

@@ -1,0 +1,56 @@
+/* ==========================================================================
+   Uses Page Styles
+   ========================================================================== */
+
+.uses-category {
+  margin-bottom: var(--space-2xl);
+}
+
+.uses-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.uses-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding: var(--space-xs) 0;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+.uses-name {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.uses-link {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.uses-link:hover {
+  color: var(--accent-rust);
+  border-bottom-color: var(--accent-rust);
+}
+
+.uses-desc {
+  color: var(--text-muted);
+}
+
+@media (max-width: 480px) {
+  .uses-item {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .uses-desc {
+    padding-left: 0;
+  }
+}

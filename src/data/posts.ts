@@ -1,3 +1,5 @@
+import { getDevpadClient } from "~/lib/devpad";
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -5,7 +7,7 @@ export type BlogPost = {
   url: string;
 };
 
-export const posts: BlogPost[] = [
+const FALLBACK_POSTS: BlogPost[] = [
   {
     slug: "recent-thoughts-about-gen-ai",
     title: "recent thoughts about gen-ai",
@@ -38,4 +40,47 @@ export const posts: BlogPost[] = [
   },
 ];
 
-export const getLatestPosts = (count: number = 3) => posts.slice(0, count);
+let _cache: BlogPost[] | null = null;
+
+const formatDate = (d: Date): string => {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  return `${year}-${month}`;
+};
+
+async function fetchPosts(): Promise<BlogPost[]> {
+  if (_cache) return _cache;
+
+  const client = getDevpadClient();
+  if (!client) {
+    _cache = FALLBACK_POSTS;
+    return _cache;
+  }
+
+  const result = await client.blog.posts.list({ status: "published" });
+
+  if (!result.ok) {
+    console.warn("[gallery] Failed to fetch blog posts, using fallback:", result.error);
+    _cache = FALLBACK_POSTS;
+    return _cache;
+  }
+
+  const posts = result.value.posts
+    .map((p) => ({
+      slug: p.slug,
+      title: p.title,
+      date: formatDate(p.publish_at ?? p.created_at),
+      url: `https://forbit.dev/blog/${p.slug}`,
+      _sort: (p.publish_at ?? p.created_at).getTime(),
+    }))
+    .sort((a, b) => b._sort - a._sort)
+    .map(({ _sort, ...post }) => post);
+
+  _cache = posts.length > 0 ? posts : FALLBACK_POSTS;
+  return _cache;
+}
+
+export async function getLatestPosts(count: number = 3): Promise<BlogPost[]> {
+  const posts = await fetchPosts();
+  return posts.slice(0, count);
+}

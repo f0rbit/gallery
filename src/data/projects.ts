@@ -1,5 +1,5 @@
 import { getDevpadClient } from "~/lib/devpad";
-import { getEnrichment, featuredSlugs } from "~/data/project-config";
+import { projectConfig, getEnrichment, featuredSlugs } from "~/data/project-config";
 
 export type ProjectStatus = "live" | "development";
 
@@ -60,12 +60,32 @@ function yearFromIso(iso: string): string {
 
 let _cache: Project[] | null = null;
 
+function titleCase(slug: string): string {
+  return slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+}
+
+function fillMissingSlugs(projects: Project[]): Project[] {
+  const existing = new Set(projects.map(p => p.slug));
+  for (const [slug, config] of Object.entries(projectConfig)) {
+    if (existing.has(slug)) continue;
+    projects.push({
+      slug,
+      name: titleCase(slug),
+      description: "",
+      year: config.yearOverride ?? "",
+      status: "development" as ProjectStatus,
+      tags: config.tags,
+    });
+  }
+  return projects;
+}
+
 async function fetchProjects(): Promise<Project[]> {
   if (_cache) return _cache;
 
   const client = getDevpadClient();
   if (!client) {
-    _cache = fallbackProjects;
+    _cache = fillMissingSlugs([...fallbackProjects]);
     return _cache;
   }
 
@@ -73,7 +93,7 @@ async function fetchProjects(): Promise<Project[]> {
 
   if (!result.ok) {
     console.warn("[gallery] devpad API error, using fallback data:", result.error);
-    _cache = fallbackProjects;
+    _cache = fillMissingSlugs([...fallbackProjects]);
     return _cache;
   }
 
@@ -95,7 +115,7 @@ async function fetchProjects(): Promise<Project[]> {
       };
     });
 
-  _cache = projects;
+  _cache = fillMissingSlugs(projects);
   return _cache;
 }
 

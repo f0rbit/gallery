@@ -1,14 +1,10 @@
 import { Component, For } from "solid-js";
 import { Title, Meta } from "@solidjs/meta";
 import { A } from "@solidjs/router";
-import Grain from "~/components/common/Grain";
+import Layout from "~/components/layout/Layout";
 import { getFeaturedProjects, type Project } from "~/data/projects";
 import { getLatestPosts, type BlogPost } from "~/data/posts";
-
-const navLinks = [
-  { label: "about", href: "/about" },
-  { label: "now", href: "/now" },
-];
+import { navLinks } from "~/data/links";
 
 const ProjectRow: Component<{ project: Project }> = (props) => {
   const href = () => `/projects/${props.project.slug}`;
@@ -45,7 +41,7 @@ const Home: Component = () => {
         name="description"
         content="Software engineer, game developer, and artist. Building at the intersection of technology and human experience."
       />
-      <Grain />
+      <Layout>
       <div class="home">
         <header class="home-hero" style={{ "padding-top": "var(--space-hero)", "padding-bottom": "var(--space-hero-below)" }}>
           <h1 class="home-name">THOMAS MATERNE</h1>
@@ -84,6 +80,7 @@ const Home: Component = () => {
           </nav>
         </div>
       </div>
+      </Layout>
     </>
   );
 };

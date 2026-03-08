@@ -313,63 +313,6 @@ a:hover {
 }
 
 /* ---------------------------------------------------------------------------
-   Card - Generic card component
-   --------------------------------------------------------------------------- */
-.card {
-  display: block;
-  padding: var(--space-lg);
-  background: var(--bg-warm);
-  border: var(--border-subtle);
-  text-decoration: none;
-  transition: 
-    background-color var(--transition-base),
-    border-color var(--transition-base);
-}
-
-.card:hover {
-  background: var(--bg-stone);
-  border-color: rgba(44, 40, 37, 0.15);
-}
-
-.card-title {
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: var(--text-primary);
-}
-
-.card-desc {
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
-.card-meta {
-  font-size: var(--text-sm);
-  color: var(--text-subtle);
-}
-
-.card-divider {
-  width: 2rem;
-  height: 1px;
-  background: var(--text-subtle);
-  opacity: 0.5;
-}
-
-.card-arrow {
-  font-size: var(--text-lg);
-  color: var(--text-subtle);
-  transition: transform var(--transition-fast), color var(--transition-fast);
-}
-
-.card:hover .card-arrow {
-  transform: translateX(4px);
-  color: var(--accent-rust);
-}
-
-/* ---------------------------------------------------------------------------
    Badge/Tag
    --------------------------------------------------------------------------- */
 .badge {
@@ -388,6 +331,11 @@ a:hover {
 }
 
 .badge--in-progress {
+  background: var(--accent-rust);
+  color: var(--bg-cream);
+}
+
+.badge--development {
   background: var(--accent-rust);
   color: var(--bg-cream);
 }
@@ -607,27 +555,6 @@ a:hover {
   letter-spacing: 0.15em;
 }
 
-.home-projects {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-lg);
-  max-width: var(--content-width);
-  margin: 0 auto;
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .home-projects {
-    max-width: none;
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.home-status {
-  text-align: center;
-  padding: var(--space-lg) 0;
-}
-
 .home-nav {
   display: flex;
   justify-content: center;
@@ -652,29 +579,6 @@ a:hover {
 
 @media (min-width: 480px) {
   .home-nav-sep { display: block; }
-}
-
-.home-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-lg);
-  padding: var(--space-lg) 0;
-}
-
-@media (min-width: 640px) {
-  .home-footer {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-}
-
-.home-external {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
 /* ==========================================================================
@@ -753,38 +657,6 @@ a:hover {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
-}
-
-/* ==========================================================================
-   IN-PROGRESS COMPONENT
-   ========================================================================== */
-
-.in-progress {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-md);
-  padding: var(--space-2xl) var(--space-lg);
-  color: var(--text-muted);
-}
-
-.in-progress-icon {
-  font-size: 2rem;
-  animation: hammer-swing 0.6s ease-in-out infinite;
-  transform-origin: bottom right;
-}
-
-.in-progress-text {
-  font-family: var(--font-display);
-  font-size: var(--text-sm);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-@keyframes hammer-swing {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-20deg); }
 }
 
 /* ==========================================================================
